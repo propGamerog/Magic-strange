@@ -1,11 +1,9 @@
-name: DocterStrange
-version: 1.0
+name: DoctorStrange
 main: com.prop.abilities.Main
+version: 1.0
 api-version: 1.19
-author: propGamerog
-description: A plugin that gives players magical abilities like fireball and chakra effects.
-
+author: PropGamer
 commands:
-  magic:
-    description: Use Doctor Strange abilities
-    usage: /magic
+  doctorstrange:
+    description: Cast Doctor Strange’s powers
+    usage: /doctorstrange
