@@ -23,7 +23,7 @@ jobs:
       run: mvn -B package --file pom.xml
 
     - name: Upload JAR Artifact
-      uses: actions/update-artifact@v4
+      uses: actions/download-artifact@v4
       with:
         name: DoctorStrangePlugin
         path: target/*.jar
