@@ -13,42 +13,33 @@ public class Main extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        getLogger().info("DocterStrange plugin enabled!");
+        getLogger().info("Doctor Strange plugin enabled!");
     }
 
     @Override
     public void onDisable() {
-        getLogger().info("DocterStrange plugin disabled!");
+        getLogger().info("Doctor Strange plugin disabled!");
     }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (!(sender instanceof Player)) {
-            sender.sendMessage(ChatColor.RED + "Only players can use this command!");
+    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+        if (cmd.getName().equalsIgnoreCase("doctorstrange")) {
+            if (sender instanceof Player) {
+                Player player = (Player) sender;
+                player.sendMessage(ChatColor.DARK_PURPLE + "Doctor Strange power activated!");
+
+                // Fireball spawn
+                Fireball fireball = player.launchProjectile(Fireball.class);
+                fireball.setYield(2); // explosion power
+
+                // Particles
+                player.getWorld().spawnParticle(Particle.PORTAL, player.getLocation(), 100);
+
+                // Broadcast message
+                Bukkit.broadcastMessage(ChatColor.LIGHT_PURPLE + player.getName() + " used Doctor Strange powers!");
+            }
             return true;
         }
-
-        Player player = (Player) sender;
-
-        if (command.getName().equalsIgnoreCase("magic")) {
-            // Fireball throw
-            Fireball fireball = player.launchProjectile(Fireball.class);
-            fireball.setIsIncendiary(false);
-            fireball.setYield(2F);
-
-            // Chakra effect
-            Bukkit.getScheduler().runTaskTimer(this, () -> {
-                player.getWorld().spawnParticle(
-                        Particle.ENCHANTMENT_TABLE,
-                        player.getLocation().add(0, 1, 0),
-                        30, 1, 1, 1, 0.1
-                );
-            }, 0L, 10L);
-
-            player.sendMessage(ChatColor.GOLD + "You used Doctor Strange’s magic!");
-            return true;
-        }
-
         return false;
     }
 }
